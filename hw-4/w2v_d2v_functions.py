@@ -25,7 +25,7 @@ def get_w2v_vectors(model, lemmas):
     return final_vec
 
 
-def save_w2v_base(files_list, model, mystem, save=True):
+def save_w2v_base(files_list, model, mystem, save=True, title='w2v_base'):
     """Индексирует всю базу для поиска через word2vec"""
     documents_info = []    
     
@@ -44,7 +44,7 @@ def save_w2v_base(files_list, model, mystem, save=True):
         documents_info.append(file_info)
     
     if save:
-        with open('w2v_base.pkl', 'wb') as fw:
+        with open(title + '.pkl', 'wb') as fw:
             pickle.dump(documents_info, fw)
     
     return documents_info
@@ -68,7 +68,7 @@ def search_w2v(query, w2v_model, data_word2vec, n_results):
     return relevant
 
 
-def get_paragraphs(files_list, mystem):
+def get_paragraphs(files_list, mystem, del_stopwords=False):
     file_text = {}
     data = []
     
@@ -84,19 +84,19 @@ def get_paragraphs(files_list, mystem):
         paragraphs = splitter(text, 1)
             
         for paragraph in paragraphs:
-            paragraph_lemmatized = preprocessing(paragraph, del_stopwords=False)
+            paragraph_lemmatized = preprocessing(paragraph, del_stopwords)
             data.append({'file': file, 'paragraph': paragraph_lemmatized})
-                
-    with open('file_text', 'w', encoding='utf-8') as fw:
-        json.dump(file_text, fw)
-    
+
     if file_text:
+        with open('file_text', 'w', encoding='utf-8') as fw:
+            json.dump(file_text, fw)
         return data, file_text
+    
     else:
         return data
 
     
-def train_doc2vec(data, epochs, save=True):
+def train_doc2vec(data, epochs, save=True, title='d2v_model'):
     tagged_data = [TaggedDocument(words=elem['paragraph'],
                                   tags=[str(i)]) for i, elem in enumerate(data)]
     model = Doc2Vec(vector_size=100, min_count=5, alpha=0.025, 
@@ -107,7 +107,7 @@ def train_doc2vec(data, epochs, save=True):
     model.train(tagged_data, total_examples=model.corpus_count, epochs=model.epochs)
     
     if save:
-        with open('d2v_model.pkl', 'wb') as fw:
+        with open(title + '.pkl', 'wb') as fw:
             pickle.dump(model, fw)
     
     return model
@@ -119,7 +119,7 @@ def get_d2v_vectors(model, lemmas):
     return vec
     
 
-def save_d2v_base(model, paragraphs, save=True):
+def save_d2v_base(model, paragraphs, save=True, title='d2v_base'):
     """Индексирует всю базу для поиска через doc2vec"""
     documents_info = []    
     
@@ -130,7 +130,7 @@ def save_d2v_base(model, paragraphs, save=True):
         documents_info.append(file_info)
     
     if save:
-        with open('d2v_base.pkl', 'wb') as fw:
+        with open(title + '.pkl', 'wb') as fw:
             pickle.dump(documents_info, fw)
     
     return documents_info 
