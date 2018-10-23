@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  <link href="../static/css/bootstrap.css" rel="stylesheet"/>
+  <title>
+   Search page
+  </title>
+ </head>
+ <body>
+  <nav class="navbar navbar-light bg-light">
+   <a class="navbar-brand" href="#">
+   </a>
+  </nav>
+  <div class="jumbotron justify-content-center col-8 offset-3">
+   <h1 class="display-5">
+    Найди комнату по объявлению!
+   </h1>
+   <p class="lead">
+    Поиск осуществляется по объявлениям с
+    <a href="https://www.avito.ru/rossiya/komnaty" target="_blank">
+     https://www.avito.ru/rossiya/komnaty
+    </a>
+    .
+   </p>
+   <hr class="m-y-2"/>
+   <form>
+    <div class="form-group row">
+     <label class="col-2 col-form-label">
+      Your query:
+     </label>
+     <div class="col-6">
+      <input class="form-control" id="example-text-input" name="query" type="text"/>
+     </div>
+    </div>
+    <div class="form-group">
+     <label for="search_method">
+      Please choose search method:
+     </label>
+     <div class="form-check">
+      <label class="form-check-label">
+       <input class="form-check-input" name="inverted_index" type="checkbox" value="inverted_index"/>
+       inverted index
+      </label>
+     </div>
+     <div class="form-check">
+      <label class="form-check-label">
+       <input class="form-check-input" name="word2vec" type="checkbox" value="word2vec"/>
+       word2vec
+      </label>
+     </div>
+     <div class="form-check">
+      <label class="form-check-label">
+       <input class="form-check-input" name="doc2vec" type="checkbox" value="doc2vec"/>
+       doc2vec
+      </label>
+     </div>
+    </div>
+    <input class="btn btn-primary " type="submit" value="Искать"/>
+   </form>
+  </div>
+ </body>
+</html>

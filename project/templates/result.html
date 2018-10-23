@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  <link href="../static/css/bootstrap.css" rel="stylesheet"/>
+  <title>
+   Page with results
+  </title>
+ </head>
+ <body>
+  <nav class="navbar navbar-light bg-light">
+   <a class="navbar-brand" href="#">
+   </a>
+  </nav>
+  <div class="list-group offset-2 justify-content-center col-8">
+   <div class="form-group row offset-1">
+    <h4>
+     Результаты по запросу
+     <mark>
+      {{query}}
+     </mark>
+     :
+    </h4>
+   </div>
+   <ul class="list-group">
+    {% for url, text in results %}
+    <li class="list-group-item">
+     <h5 class="list-group-item-heading">
+      <a href="{{ 'https://www.avito.ru' + url }}" target="_blank">
+       {{ 'https://www.avito.ru' + url }}
+      </a>
+     </h5>
+     <p class="list-group-item-text">
+      {{text}}
+     </p>
+    </li>
+    {% endfor %}
+   </ul>
+  </div>
+ </body>
+</html>
